@@ -37,3 +37,11 @@ export function pythonCommand() {
   throw new Error(`Python 3 not found for ${os.platform()}; install Python or set PYTHON`);
 }
 
+export function vectorPythonCommand() {
+  const runtime = runtimeRoot();
+  const candidate = process.platform === "win32"
+    ? path.join(runtime, ".venv", "Scripts", "python.exe")
+    : path.join(runtime, ".venv", "bin", "python");
+  if (fs.existsSync(candidate)) return candidate;
+  throw new Error(`Vector runtime not installed. Create ${path.join(runtime, ".venv")} and install requirements-vector.txt`);
+}
