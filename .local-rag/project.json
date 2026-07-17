@@ -14,6 +14,7 @@
       "include": ["**/*.pdf"],
       "exclude": [],
       "copy_raw": false,
+      "processing_profile": "technical",
       "categories": {
         "domain": ["iot"],
         "source_format": ["pdf"]
@@ -29,6 +30,7 @@
       "include": ["**/*.html"],
       "exclude": ["**/draft/**"],
       "copy_raw": false,
+      "processing_profile": "technical",
       "categories": {
         "source_format": ["html"],
         "purpose": ["fixture-source"]

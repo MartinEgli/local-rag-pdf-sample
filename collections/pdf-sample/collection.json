@@ -1,0 +1,10 @@
+{
+  "schema": "agentknowledge.collection.v1",
+  "collection_id": "pdf-sample",
+  "domain": "pdf-sample",
+  "purpose": "IoT operations evidence",
+  "specialist_skills": [
+    "arduino-programmer",
+    "software-architecture"
+  ]
+}

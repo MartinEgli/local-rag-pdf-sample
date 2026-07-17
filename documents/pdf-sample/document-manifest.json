@@ -9,6 +9,7 @@
       "extract_path": "extracted/pdf-sample/sensor-network-overview.md",
       "evidence_id": "PDF-SAMPLE-OVERVIEW-001",
       "sha256": "18487185399a01ab724c9ba04c9a3a0531dd6ee7f9d857d6b1fe0d6b1faee47f",
+      "processing_profile": "technical",
       "categories": {
         "document_type": ["overview"],
         "domain": ["iot", "sensor-network"],
@@ -27,6 +28,7 @@
       "extract_path": "extracted/pdf-sample/maintenance-runbook.md",
       "evidence_id": "PDF-SAMPLE-MAINTENANCE-001",
       "sha256": "d9019aaa3f5c1fe1c55860ab968f9bb50a0fcffca54eb474ed4c4025c08931fa",
+      "processing_profile": "technical",
       "categories": {
         "document_type": ["runbook"],
         "domain": ["iot", "maintenance"],
