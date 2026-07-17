@@ -4,7 +4,24 @@
   "knowledge_root": ".",
   "domain": "pdf-sample",
   "source_folders": [
-    "sources/pdfs"
+    "sources/pdfs",
+    "fixtures/pdf-source"
+  ],
+  "sources": [
+    {
+      "id": "pdf-fixtures",
+      "path": "sources/pdfs",
+      "include": ["**/*.pdf"],
+      "exclude": [],
+      "copy_raw": false
+    },
+    {
+      "id": "fixture-html",
+      "path": "fixtures/pdf-source",
+      "include": ["**/*.html"],
+      "exclude": ["**/draft/**"],
+      "copy_raw": false
+    }
   ],
   "exclude": [
     ".git",
