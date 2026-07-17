@@ -14,6 +14,12 @@ documents are committed under `sources/pdfs/`, extracted locally, indexed by
 - The runtime itself can extract the committed PDFs page by page while keeping
   SHA-256, Document ID, Evidence ID, category, attribute, and page lineage.
 - Generated JSON, Qdrant, model-cache, and SQLite graph data remains local and unversioned.
+- Query vectors are checked against a model-artifact, tokenizer, configuration,
+  revision, pooling, normalization, and dimension fingerprint before search.
+- Portable bundles carry deterministic graph JSONL and reconstruct SQLite
+  without copying the live database.
+- Every document declares whether its original is included or externally
+  referenced and whether the extract alone is sufficient for verification.
 
 The normal test keeps the dependency-free JSON backend for fast checks. The
 optional KAG smoke test uses persistent local Qdrant, multilingual FastEmbed
@@ -108,10 +114,13 @@ test with:
 npm run portable:test
 ```
 
-It exports extracts, settings, registry, chunks, real FastEmbed vectors, and
-skill bindings into a checksummed ZIP, imports it into a fresh knowledge root,
-and reconstructs Qdrant without re-embedding the documents. The target still
-needs the declared model for new query embeddings.
+It exports extracts, settings, registry, chunks, real FastEmbed vectors, the
+exact embedding compatibility contract, deterministic graph JSONL, source
+availability, and skill bindings into a checksummed ZIP. Import reconstructs
+Qdrant without re-embedding documents and reconstructs SQLite without copying
+the live graph database. Because the fresh test root has no target model, the
+import explicitly reports embedding compatibility as unverified; the semantic
+smoke test proves strict compatibility against the provisioned model.
 
 The project config demonstrates a provider-neutral `portable_bundle_store`.
 Point its path to a local directory or an already synchronised OneDrive,

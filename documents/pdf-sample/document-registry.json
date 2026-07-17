@@ -76,7 +76,12 @@
       },
       "extraction": {},
       "processing_profile": "technical",
-      "processing_profile_digest": "56295a220ebe30cb0238d9deaa4aba80ab6ac002f62dfbdcbfbdee676192bd3b"
+      "processing_profile_digest": "56295a220ebe30cb0238d9deaa4aba80ab6ac002f62dfbdcbfbdee676192bd3b",
+      "source_availability": {
+        "original_status": "external-referenced",
+        "redistribution_status": "CC0-1.0-permits-copy-but-source-policy-references-repo",
+        "extract_verification_sufficient": false
+      }
     },
     {
       "document_id": "doc:d490d79ab744beadba616f28",
@@ -152,7 +157,12 @@
       },
       "extraction": {},
       "processing_profile": "technical",
-      "processing_profile_digest": "56295a220ebe30cb0238d9deaa4aba80ab6ac002f62dfbdcbfbdee676192bd3b"
+      "processing_profile_digest": "56295a220ebe30cb0238d9deaa4aba80ab6ac002f62dfbdcbfbdee676192bd3b",
+      "source_availability": {
+        "original_status": "external-referenced",
+        "redistribution_status": "CC0-1.0-permits-copy-but-source-policy-references-repo",
+        "extract_verification_sufficient": false
+      }
     }
   ],
   "updated_at": "2026-07-17T11:25:00.099021+00:00"

@@ -46,5 +46,6 @@ assert.match(overview.source_sha256, /^[a-f0-9]{64}$/);
 assert.equal(overview.embedding_backend, "fastembed");
 assert.match(overview.embedding_model, /multilingual/);
 assert.ok(overview.embedding_dimensions > 0);
+assert.match(overview.embedding_fingerprint_sha256, /^[a-f0-9]{64}$/);
 assert.match(overview.fastembed_version, /^\d+\.\d+/);
 console.log(`KAG smoke test passed: ${payload.backend}, ${overview.chunk_id}, ${overview.evidence_ids.join(", ")}.`);

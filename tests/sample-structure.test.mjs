@@ -22,6 +22,9 @@ test("project configuration uses the Local RAG project schema", () => {
   assert.deepEqual(config.sources[0].include, ["**/*.pdf"]);
   assert.deepEqual(config.sources[1].exclude, ["**/draft/**"]);
   assert.equal(config.sources[2].visual_description_policy, "reviewed-only");
+  assert.equal(config.sources[0].source_availability.original_status, "external-referenced");
+  assert.equal(config.sources[0].source_availability.extract_verification_sufficient, false);
+  assert.equal(config.sources[2].source_availability.original_status, "included");
   assert.deepEqual(config.sources[2].include, ["**/*.svg"]);
   assert.equal(config.backend, "qdrant-local");
   assert.equal(config.graph_backend, "sqlite");
@@ -88,6 +91,8 @@ test("profiles and specialist skill bindings are persisted", () => {
   for (const document of registry.documents) {
     assert.equal(document.processing_profile, "technical");
     assert.match(document.processing_profile_digest, /^[a-f0-9]{64}$/);
+    assert.equal(document.source_availability.original_status, "external-referenced");
+    assert.equal(document.source_availability.extract_verification_sufficient, false);
   }
 });
 

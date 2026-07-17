@@ -2,6 +2,7 @@ node_modules/
 .local-rag-index/
 .local-rag-qdrant/
 .local-rag-graph/
+.local-rag-embedding/
 .local-rag-models/
 .local-rag/mcp-clients/
 artifacts/rag-bundles/

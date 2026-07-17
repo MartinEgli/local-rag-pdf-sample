@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="360" viewBox="0 0 800 360" role="img" aria-labelledby="title desc">
+  <!-- Self-authored deterministic Local RAG visual fixture. -->
   <title id="title">Sensor gateway system context</title>
   <desc id="desc">Two sensors send readings to a gateway, which sends telemetry to an operations service.</desc>
   <defs>

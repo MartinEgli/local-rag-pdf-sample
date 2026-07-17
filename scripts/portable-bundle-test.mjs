@@ -13,10 +13,18 @@ try {
   const python=vectorPythonCommand(), runtime=runtimeRoot();
   let result=spawnSync(python,[path.join(runtime,"rag","portable","export-bundle.py"),"--knowledge-root",root,"--domain","pdf-sample","--project-config",configPath,"--specialist-skill","arduino-programmer","--specialist-skill","software-architecture","--purpose","IoT operations evidence","--local-files-only"],{encoding:"utf8"});
   assert.equal(result.status,0,result.stderr||result.stdout); const exported=JSON.parse(result.stdout); assert.match(exported.sha256,/^[a-f0-9]{64}$/);
+  const contract=exported.embedding.embedding_contract; assert.equal(contract.schema,"agentknowledge.embedding-contract.v1");
+  for (const field of ["model_artifact_sha256","tokenizer_sha256","configuration_sha256","fingerprint_sha256"]) assert.match(contract[field],/^[a-f0-9]{64}$/);
+  assert.equal(contract.pooling,"mean"); assert.equal(contract.normalization,"none");
+  assert.equal(exported.graph.schema,"agentknowledge.graph-archive.v1"); assert.ok(exported.graph.nodes>0&&exported.graph.edges>0); assert.match(exported.graph.sha256,/^[a-f0-9]{64}$/);
   assert.equal(exported.receipt.provider,"synology-drive"); assert.ok(fs.existsSync(path.join(store,"pdf-sample","latest.json")));
   assert.equal(fs.readdirSync(path.join(store,"pdf-sample")).some(name=>name.endsWith(".partial")),false);
   result=spawnSync(python,[path.join(runtime,"rag","portable","import-bundle.py"),"--knowledge-root",imported,"--collection-id","pdf-sample","--project-config",configPath],{encoding:"utf8"});
   assert.equal(result.status,0,result.stderr||result.stdout); const loaded=JSON.parse(result.stdout); assert.equal(loaded.qdrant.chunks,exported.chunks);
+  assert.equal(loaded.qdrant.compatibility,"unverified"); assert.ok(loaded.qdrant.warnings.some(item=>/unverified/i.test(item)));
+  assert.equal(loaded.graph.nodes,exported.graph.nodes); assert.equal(loaded.graph.edges,exported.graph.edges);
+  assert.ok(fs.existsSync(path.join(imported,".local-rag-graph","pdf-sample.sqlite3")));
+  assert.equal(loaded.source_gaps.length,2); assert.ok(loaded.source_gaps.every(item=>item.extract_verification_sufficient===false));
   const collection=JSON.parse(fs.readFileSync(path.join(imported,"collections","pdf-sample","collection.json"),"utf8")); assert.deepEqual(collection.specialist_skills,["arduino-programmer","software-architecture"]);
   const importedIndex=JSON.parse(fs.readFileSync(path.join(imported,".local-rag-index","pdf-sample-sample-index.json"),"utf8"));
   assert.ok(importedIndex.chunks.some(x=>x.evidence_ids.includes("PDF-SAMPLE-OVERVIEW-001")));
