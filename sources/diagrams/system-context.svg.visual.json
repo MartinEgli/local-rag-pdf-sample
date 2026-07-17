@@ -1,0 +1,35 @@
+{
+  "schema": "agentknowledge.visual-descriptions.v1",
+  "source_path": "sources/diagrams/system-context.svg",
+  "source_sha256": "81a2edc248645b7bd9be7c71a186bcd1f9a5e477fa4e7434dd25498089333f65",
+  "descriptions": [
+    {
+      "visual_id": "sensor-gateway-context",
+      "page": null,
+      "region": null,
+      "kind": "diagram",
+      "title": "Sensor gateway system context",
+      "description": "Two field sensors send readings to an edge gateway. The gateway sends telemetry to an operations service.",
+      "visible_text": [
+        "Temperature sensor",
+        "Pressure sensor",
+        "Edge gateway",
+        "Operations service",
+        "readings",
+        "telemetry"
+      ],
+      "observations": [
+        "Three directed arrows connect both sensors to the gateway and the gateway to the operations service.",
+        "The diagram shows no direct sensor-to-service connection."
+      ],
+      "interpretations": [
+        "The arrow labelled telemetry may represent the upstream operational data flow."
+      ],
+      "status": "reviewed",
+      "description_method": "human",
+      "model": null,
+      "reviewer": "sample-maintainer",
+      "reviewed_at": "2026-07-17T00:00:00+02:00"
+    }
+  ]
+}
