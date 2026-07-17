@@ -3,4 +3,5 @@ node_modules/
 .local-rag-qdrant/
 .local-rag-graph/
 .local-rag-models/
+.local-rag/mcp-clients/
 npm-debug.log*
