@@ -10,7 +10,10 @@ const config = JSON.parse(fs.readFileSync(path.join(root, ".local-rag", "project
 test("project configuration uses the Local RAG project schema", () => {
   assert.equal(config.schema, "agentknowledge.local-rag.project.v1");
   assert.equal(config.domain, "pdf-sample");
-  assert.deepEqual(config.source_folders, ["sources/pdfs"]);
+  assert.deepEqual(config.source_folders, ["sources/pdfs", "fixtures/pdf-source"]);
+  assert.equal(config.sources.length, 2);
+  assert.deepEqual(config.sources[0].include, ["**/*.pdf"]);
+  assert.deepEqual(config.sources[1].exclude, ["**/draft/**"]);
   assert.equal(config.backend, "qdrant-local");
   assert.equal(config.graph_backend, "sqlite");
   assert.match(config.embedding_model, /multilingual/);

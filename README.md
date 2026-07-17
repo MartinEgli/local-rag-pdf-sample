@@ -17,6 +17,9 @@ The normal test keeps the dependency-free JSON backend for fast checks. The
 optional KAG smoke test uses persistent local Qdrant, multilingual FastEmbed
 embeddings, contextual chunks, and a source-traceable SQLite graph.
 
+`.local-rag/project.json` also demonstrates two configured source locations.
+Each location has a stable source ID and its own `include` and `exclude` globs.
+
 ## Prerequisites
 
 - Node.js 22.13+ or 24+
