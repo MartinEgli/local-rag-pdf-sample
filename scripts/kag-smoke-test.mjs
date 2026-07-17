@@ -43,4 +43,8 @@ assert.match(overview.text, /72 hours/i);
 assert.ok(overview.graph_context.some((item) => item.edge_kind === "CITES_EVIDENCE"));
 assert.deepEqual(overview.categories.document_type, ["overview"]);
 assert.match(overview.source_sha256, /^[a-f0-9]{64}$/);
+assert.equal(overview.embedding_backend, "fastembed");
+assert.match(overview.embedding_model, /multilingual/);
+assert.ok(overview.embedding_dimensions > 0);
+assert.match(overview.fastembed_version, /^\d+\.\d+/);
 console.log(`KAG smoke test passed: ${payload.backend}, ${overview.chunk_id}, ${overview.evidence_ids.join(", ")}.`);

@@ -1,0 +1,31 @@
+{
+  "schema": "agentknowledge.performance.v1",
+  "measured_at": "2026-07-17T12:14:00+02:00",
+  "command": "AgentKnowledgeRuntime/.venv/Scripts/python.exe benchmarks/benchmark_json.py --documents 250 --queries 100",
+  "environment": {
+    "python": "3.13.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel"
+  },
+  "corpus": {"documents": 250, "chunks": 500, "queries": 100},
+  "correctness": {
+    "first_processed": 250,
+    "resync_processed": 250,
+    "resync_unchanged": 250,
+    "query_results": 500,
+    "graph_created": true
+  },
+  "timings_ms": {
+    "cold_ingest": 1110.221,
+    "unchanged_resync": 689.23,
+    "index_build": 554.49,
+    "graph_build": 71.13,
+    "query_mean": 29.174,
+    "query_p50": 27.93,
+    "query_p95": 34.198
+  },
+  "throughput": {
+    "ingest_documents_per_second": 225.18,
+    "index_chunks_per_second": 901.73
+  }
+}
