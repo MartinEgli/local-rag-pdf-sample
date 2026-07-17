@@ -14,6 +14,11 @@
       "include": ["**/*.pdf"],
       "exclude": [],
       "copy_raw": false,
+      "source_availability": {
+        "original_status": "external-referenced",
+        "redistribution_status": "CC0-1.0-permits-copy-but-source-policy-references-repo",
+        "extract_verification_sufficient": false
+      },
       "processing_profile": "technical",
       "categories": {
         "domain": ["iot"],
@@ -30,6 +35,11 @@
       "include": ["**/*.html"],
       "exclude": ["**/draft/**"],
       "copy_raw": false,
+      "source_availability": {
+        "original_status": "external-referenced",
+        "redistribution_status": "self-authored-fixture",
+        "extract_verification_sufficient": false
+      },
       "processing_profile": "technical",
       "categories": {
         "source_format": ["html"],
@@ -45,6 +55,11 @@
       "include": ["**/*.svg"],
       "exclude": [],
       "copy_raw": true,
+      "source_availability": {
+        "original_status": "included",
+        "redistribution_status": "CC0-1.0",
+        "extract_verification_sufficient": false
+      },
       "processing_profile": "technical",
       "visual_description_policy": "reviewed-only",
       "categories": {
@@ -72,6 +87,7 @@
     ".local-rag-index",
     ".local-rag-qdrant",
     ".local-rag-graph",
+    ".local-rag-embedding",
     ".local-rag-models"
   ],
   "backend": "qdrant-local",
