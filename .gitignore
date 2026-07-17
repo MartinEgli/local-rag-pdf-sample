@@ -4,4 +4,5 @@ node_modules/
 .local-rag-graph/
 .local-rag-models/
 .local-rag/mcp-clients/
+artifacts/rag-bundles/
 npm-debug.log*

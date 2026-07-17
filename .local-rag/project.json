@@ -59,6 +59,11 @@
   "backend": "qdrant-local",
   "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
   "graph_backend": "sqlite",
+  "portable_bundle_store": {
+    "provider": "local",
+    "path": "artifacts/rag-bundles",
+    "layout": "collection-versioned"
+  },
   "mcp_server": "../AgentKnowledgeRuntime/mcp-server/server.py",
   "raw_policy": "commit-self-authored-pdf-fixtures",
   "retrieval_rule": "Retrieved chunks are candidates and must be verified against the PDF, curated extract, source map, and evidence register."
