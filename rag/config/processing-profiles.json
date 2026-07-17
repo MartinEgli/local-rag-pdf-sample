@@ -1,0 +1,8 @@
+{
+  "schema": "agentknowledge.processing-profiles.v1",
+  "default_profile": "technical",
+  "profiles": {
+    "technical": {"strategy": "headings", "max_chars": 1100, "min_chars": 160, "overlap_chars": 140},
+    "narrative": {"strategy": "narrative", "max_chars": 2200, "min_chars": 600, "overlap_chars": 260}
+  }
+}

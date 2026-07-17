@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0
+
+- Added persisted technical and narrative processing profiles.
+- Added checksummed portable vector-bundle export/import and fresh-root Qdrant
+  reconstruction tests.
+- Added a collection manifest binding the sample to two specialist skills.
+
 ## 0.5.0
 
 - Added real Runtime PDF ingestion integration against both committed fixtures.

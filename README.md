@@ -94,6 +94,26 @@ The result separates model/index construction from warm query p50/p95 latency.
 It is evidence for the measured host, not a portable performance guarantee.
 Recorded receipts from the current implementation are under `benchmarks/`.
 
+## Profiles And Portable Collection
+
+`rag/config/processing-profiles.json` stores separate `technical` and
+`narrative` settings. The PDF fixtures use the technical profile; profile ID,
+snapshot, and digest survive registry, chunks, embeddings, and retrieval.
+
+`collections/pdf-sample/collection.json` binds this collection declaratively to
+`arduino-programmer` and `software-architecture`. Run the cross-machine bundle
+test with:
+
+```powershell
+npm run portable:test
+```
+
+It exports extracts, settings, registry, chunks, real FastEmbed vectors, and
+skill bindings into a checksummed ZIP, imports it into a fresh knowledge root,
+and reconstructs Qdrant without re-embedding the documents. The target still
+needs the declared model for new query embeddings. Use Git LFS or file/object
+storage for large or confidential bundles; do not commit live Qdrant storage.
+
 The smoke query is German while the PDF is English. It verifies that the
 multilingual semantic result contains `72 hours`, preserves
 `PDF-SAMPLE-OVERVIEW-001`, filters `document_type=overview`, preserves the
