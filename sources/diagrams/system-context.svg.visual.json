@@ -1,7 +1,7 @@
 {
   "schema": "agentknowledge.visual-descriptions.v1",
   "source_path": "sources/diagrams/system-context.svg",
-  "source_sha256": "9ad06e4afe2facfcf81bfbe5dad539141af875ce11c0a0fdddc38b0658967b96",
+  "source_sha256": "5e8b2b87e259079de9a214ad00f1721db6c5dd8d8a43b1dc12c6065f60c8683e",
   "descriptions": [
     {
       "visual_id": "sensor-gateway-context",

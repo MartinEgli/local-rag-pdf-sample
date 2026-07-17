@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.0
+
+- Added a signed and AES-256-GCM-encrypted portable-generation round trip.
+- Verified immutable generation receipts, publisher/device identity, receipt
+  IDs, and absence of plaintext bundle metadata in the synchronised store.
+
 ## 0.9.0
 
 - Added a strict embedding fingerprint covering model revision, artifacts,

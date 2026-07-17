@@ -1,6 +1,6 @@
 {
   "name": "local-rag-pdf-sample",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "private": true,
   "description": "End-to-end PDF ingestion and MCP retrieval sample for the local-rag skill.",
   "license": "MIT",

@@ -11,15 +11,24 @@ try {
   config.project_root=root; config.portable_bundle_store={provider:"synology-drive",path:store,layout:"collection-versioned"};
   const configPath=path.join(temp,"project.json"); fs.writeFileSync(configPath,JSON.stringify(config));
   const python=vectorPythonCommand(), runtime=runtimeRoot();
-  let result=spawnSync(python,[path.join(runtime,"rag","portable","export-bundle.py"),"--knowledge-root",root,"--domain","pdf-sample","--project-config",configPath,"--specialist-skill","arduino-programmer","--specialist-skill","software-architecture","--purpose","IoT operations evidence","--local-files-only"],{encoding:"utf8"});
+  let result=spawnSync(python,[path.join(runtime,"rag","portable","generate-bundle-keys.py"),"--out",path.join(temp,"keys"),"--prefix","pdf-sample"],{encoding:"utf8"});
+  assert.equal(result.status,0,result.stderr||result.stdout); const keys=JSON.parse(result.stdout);
+  result=spawnSync(python,[path.join(runtime,"rag","portable","export-bundle.py"),"--knowledge-root",root,"--domain","pdf-sample","--project-config",configPath,"--specialist-skill","arduino-programmer","--specialist-skill","software-architecture","--purpose","IoT operations evidence","--local-files-only","--publisher-id","sample-ci","--device-id",process.platform,"--signing-private-key",keys.signing_private_key,"--encryption-key",keys.encryption_key],{encoding:"utf8"});
   assert.equal(result.status,0,result.stderr||result.stdout); const exported=JSON.parse(result.stdout); assert.match(exported.sha256,/^[a-f0-9]{64}$/);
   const contract=exported.embedding.embedding_contract; assert.equal(contract.schema,"agentknowledge.embedding-contract.v1");
   for (const field of ["model_artifact_sha256","tokenizer_sha256","configuration_sha256","fingerprint_sha256"]) assert.match(contract[field],/^[a-f0-9]{64}$/);
   assert.equal(contract.pooling,"mean"); assert.equal(contract.normalization,"none");
   assert.equal(exported.graph.schema,"agentknowledge.graph-archive.v1"); assert.ok(exported.graph.nodes>0&&exported.graph.edges>0); assert.match(exported.graph.sha256,/^[a-f0-9]{64}$/);
-  assert.equal(exported.receipt.provider,"synology-drive"); assert.ok(fs.existsSync(path.join(store,"pdf-sample","latest.json")));
+  assert.equal(exported.receipt.provider,"synology-drive"); assert.equal(exported.receipt.generation,1);
+  assert.equal(exported.receipt.publisher_id,"sample-ci"); assert.equal(exported.receipt.device_id,process.platform);
+  assert.equal(exported.receipt.security.signed,true); assert.equal(exported.receipt.security.encrypted,true);
+  assert.equal(exported.receipt.signature.algorithm,"Ed25519"); assert.match(exported.receipt.receipt_id,/^[a-f0-9]{64}$/);
+  assert.ok(fs.existsSync(path.join(store,"pdf-sample","latest.json")));
+  assert.ok(fs.existsSync(path.join(store,"pdf-sample","receipts",`${exported.receipt.receipt_id}.json`)));
+  const encrypted=fs.readFileSync(exported.bundle); assert.equal(exported.bundle.endsWith(".rag.enc"),true);
+  assert.equal(encrypted.includes(Buffer.from("bundle-manifest.json")),false);
   assert.equal(fs.readdirSync(path.join(store,"pdf-sample")).some(name=>name.endsWith(".partial")),false);
-  result=spawnSync(python,[path.join(runtime,"rag","portable","import-bundle.py"),"--knowledge-root",imported,"--collection-id","pdf-sample","--project-config",configPath],{encoding:"utf8"});
+  result=spawnSync(python,[path.join(runtime,"rag","portable","import-bundle.py"),"--knowledge-root",imported,"--collection-id","pdf-sample","--project-config",configPath,"--require-signature","--verification-public-key",keys.signing_public_key,"--decryption-key",keys.encryption_key],{encoding:"utf8"});
   assert.equal(result.status,0,result.stderr||result.stdout); const loaded=JSON.parse(result.stdout); assert.equal(loaded.qdrant.chunks,exported.chunks);
   assert.equal(loaded.qdrant.compatibility,"unverified"); assert.ok(loaded.qdrant.warnings.some(item=>/unverified/i.test(item)));
   assert.equal(loaded.graph.nodes,exported.graph.nodes); assert.equal(loaded.graph.edges,exported.graph.edges);
@@ -30,5 +39,5 @@ try {
   assert.ok(importedIndex.chunks.some(x=>x.evidence_ids.includes("PDF-SAMPLE-OVERVIEW-001")));
   assert.equal(path.resolve(importedIndex.knowledge_root),path.resolve(imported));
   assert.ok(importedIndex.chunks.every(x=>x.processing_profile==="technical"&&/^[a-f0-9]{64}$/.test(x.processing_profile_digest)));
-  console.log(`Synced-folder bundle passed: ${loaded.manifest.chunks} chunks, ${exported.sha256}.`);
+  console.log(`Signed encrypted generation passed: ${loaded.manifest.chunks} chunks, ${exported.receipt.receipt_id}.`);
 } finally { fs.rmSync(temp,{recursive:true,force:true}); }

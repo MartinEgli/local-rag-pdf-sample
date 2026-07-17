@@ -116,17 +116,21 @@ npm run portable:test
 
 It exports extracts, settings, registry, chunks, real FastEmbed vectors, the
 exact embedding compatibility contract, deterministic graph JSONL, source
-availability, and skill bindings into a checksummed ZIP. Import reconstructs
-Qdrant without re-embedding documents and reconstructs SQLite without copying
-the live graph database. Because the fresh test root has no target model, the
-import explicitly reports embedding compatibility as unverified; the semantic
-smoke test proves strict compatibility against the provisioned model.
+availability, and skill bindings into a signed, AES-256-GCM-encrypted
+generation. The test verifies its Ed25519 receipt, decrypts it, reconstructs
+Qdrant without re-embedding documents, and reconstructs SQLite without copying
+the live graph database. Keys are generated in the disposable test directory
+and never enter the repository or simulated store. Because the fresh test root
+has no target model, the import explicitly reports embedding compatibility as
+unverified; the semantic smoke test proves strict compatibility against the
+provisioned model.
 
 The project config demonstrates a provider-neutral `portable_bundle_store`.
 Point its path to a local directory or an already synchronised OneDrive,
 Google Drive, Dropbox, or Synology Drive folder. Git LFS and provider SDKs are
-not required. Each collection receives versioned bundles and a checksummed
-`latest.json` import receipt; do not commit live Qdrant storage.
+not required. Each collection receives immutable receipts linked by generation
+and predecessor IDs, while `latest.json` remains a conflict-checked pointer.
+Do not commit live Qdrant storage or private/decryption keys.
 
 ## Visual Description Sample
 
