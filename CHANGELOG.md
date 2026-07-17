@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.0
+
+- Added a provider-neutral local bundle-store setting without requiring Git
+  LFS or cloud SDKs.
+- Verified versioned export and latest-receipt import through a simulated
+  Synology Drive synchronised folder.
+
 ## 0.6.0
 
 - Added persisted technical and narrative processing profiles.
