@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.0
+
+- Added a self-authored SVG system-context diagram with a reviewed visual
+  description, stable Visual ID, source hash, observations, visible text, and
+  explicitly separated interpretation.
+- Added an end-to-end visual-description ingestion and indexing test.
+
 ## 0.7.0
 
 - Added a provider-neutral local bundle-store setting without requiring Git

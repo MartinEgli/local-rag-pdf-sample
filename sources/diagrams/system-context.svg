@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="360" viewBox="0 0 800 360" role="img" aria-labelledby="title desc">
+  <title id="title">Sensor gateway system context</title>
+  <desc id="desc">Two sensors send readings to a gateway, which sends telemetry to an operations service.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="800" height="360" fill="#f8fafc"/>
+  <g font-family="Arial, sans-serif" font-size="20" text-anchor="middle">
+    <rect x="40" y="60" width="180" height="80" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+    <text x="130" y="108">Temperature sensor</text>
+    <rect x="40" y="220" width="180" height="80" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+    <text x="130" y="268">Pressure sensor</text>
+    <rect x="310" y="140" width="180" height="80" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+    <text x="400" y="188">Edge gateway</text>
+    <rect x="580" y="140" width="180" height="80" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+    <text x="670" y="176">Operations</text><text x="670" y="202">service</text>
+  </g>
+  <g stroke="#334155" stroke-width="4" fill="none" marker-end="url(#arrow)">
+    <path d="M220 100 L310 165"/><path d="M220 260 L310 195"/><path d="M490 180 L580 180"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="15" fill="#475569" text-anchor="middle">
+    <text x="265" y="115">readings</text><text x="265" y="250">readings</text><text x="535" y="168">telemetry</text>
+  </g>
+</svg>

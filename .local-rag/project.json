@@ -38,6 +38,24 @@
       "attributes": {
         "generated_pdf_source": true
       }
+    },
+    {
+      "id": "reviewed-diagrams",
+      "path": "sources/diagrams",
+      "include": ["**/*.svg"],
+      "exclude": [],
+      "copy_raw": true,
+      "processing_profile": "technical",
+      "visual_description_policy": "reviewed-only",
+      "categories": {
+        "domain": ["iot"],
+        "source_format": ["svg"],
+        "content_kind": ["diagram"]
+      },
+      "attributes": {
+        "licence": "CC0-1.0",
+        "review_status": "visual-description-approved"
+      }
     }
   ],
   "exclude": [
