@@ -1,6 +1,6 @@
 {
   "schema": "local-rag-pdf-sample.performance.v1",
-  "measured_at": "2026-07-17T10:16:09.640030+00:00",
+  "measured_at": "2026-07-17T11:18:00.395393+00:00",
   "command": "npm run perf -- --iterations 20",
   "environment": {
     "python": "3.13.14",
@@ -12,20 +12,20 @@
     "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
     "embedding_dimensions": 384
   },
-  "corpus": {"pdfs": 2, "documents": 2, "chunks": 8, "queries": 20},
+  "corpus": {"pdfs": 2, "documents": 2, "chunks": 5, "queries": 20},
   "correctness": {
-    "qdrant_chunks": 8,
+    "qdrant_chunks": 5,
     "query_results": 60,
     "results_with_evidence": 60,
-    "expanded_graph_edges": 60
+    "expanded_graph_edges": 74
   },
   "timings_ms": {
-    "json_index_build": 4.016,
-    "qdrant_build_with_model_load": 1980.135,
-    "graph_build": 10.935,
-    "registry_load": 0.342,
-    "warm_query_mean": 10.623,
-    "warm_query_p50": 10.515,
-    "warm_query_p95": 12.891
+    "json_index_build": 4.603,
+    "qdrant_build_with_model_load": 1873.995,
+    "graph_build": 11.868,
+    "registry_load": 0.501,
+    "warm_query_mean": 11.35,
+    "warm_query_p50": 11.167,
+    "warm_query_p95": 12.905
   }
 }

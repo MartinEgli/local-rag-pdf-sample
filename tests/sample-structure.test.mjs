@@ -9,6 +9,8 @@ const config = JSON.parse(fs.readFileSync(path.join(root, ".local-rag", "project
 const registry = JSON.parse(fs.readFileSync(path.join(root, "documents", "pdf-sample", "document-registry.json"), "utf8"));
 const jsonPerformance = JSON.parse(fs.readFileSync(path.join(root, "benchmarks", "json-baseline-2026-07-17.json"), "utf8"));
 const semanticPerformance = JSON.parse(fs.readFileSync(path.join(root, "benchmarks", "semantic-baseline-2026-07-17.json"), "utf8"));
+const profiles = JSON.parse(fs.readFileSync(path.join(root, "rag", "config", "processing-profiles.json"), "utf8"));
+const collection = JSON.parse(fs.readFileSync(path.join(root, "collections", "pdf-sample", "collection.json"), "utf8"));
 
 test("project configuration uses the Local RAG project schema", () => {
   assert.equal(config.schema, "agentknowledge.local-rag.project.v1");
@@ -70,4 +72,15 @@ test("performance receipts include environment, corpus, correctness, and cold/wa
   assert.equal(semanticPerformance.correctness.results_with_evidence, 60);
   assert.ok(semanticPerformance.timings_ms.qdrant_build_with_model_load > 0);
   assert.ok(semanticPerformance.timings_ms.warm_query_p95 >= semanticPerformance.timings_ms.warm_query_p50);
+});
+
+test("profiles and specialist skill bindings are persisted", () => {
+  assert.equal(profiles.schema, "agentknowledge.processing-profiles.v1");
+  assert.equal(profiles.profiles.technical.strategy, "headings");
+  assert.equal(profiles.profiles.narrative.strategy, "narrative");
+  assert.deepEqual(collection.specialist_skills, ["arduino-programmer", "software-architecture"]);
+  for (const document of registry.documents) {
+    assert.equal(document.processing_profile, "technical");
+    assert.match(document.processing_profile_digest, /^[a-f0-9]{64}$/);
+  }
 });
