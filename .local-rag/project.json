@@ -1,0 +1,27 @@
+{
+  "schema": "agentknowledge.local-rag.project.v1",
+  "project_root": ".",
+  "knowledge_root": ".",
+  "domain": "pdf-sample",
+  "source_folders": [
+    "sources/pdfs"
+  ],
+  "exclude": [
+    ".git",
+    ".env",
+    ".venv",
+    "venv",
+    "node_modules",
+    "bin",
+    "obj",
+    "dist",
+    "build",
+    "__pycache__",
+    ".local-rag-index"
+  ],
+  "backend": "local-json-demo",
+  "mcp_server": "../AgentKnowledgeRuntime/mcp-server/server.py",
+  "raw_policy": "commit-self-authored-pdf-fixtures",
+  "retrieval_rule": "Retrieved chunks are candidates and must be verified against the PDF, curated extract, source map, and evidence register."
+}
+

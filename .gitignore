@@ -1,0 +1,4 @@
+node_modules/
+.local-rag-index/
+npm-debug.log*
+

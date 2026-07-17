@@ -1,0 +1,7 @@
+{
+  "embedding": "local-hash-demo",
+  "dimensions": 256,
+  "max_chunk_chars": 900,
+  "min_chunk_chars": 120
+}
+

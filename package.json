@@ -1,0 +1,22 @@
+{
+  "name": "local-rag-pdf-sample",
+  "version": "0.1.0",
+  "private": true,
+  "description": "End-to-end PDF ingestion and MCP retrieval sample for the local-rag skill.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "extract": "node scripts/extract-pdfs.mjs",
+    "rag:build": "node scripts/runtime-cli.mjs build",
+    "rag:query": "node scripts/runtime-cli.mjs query",
+    "rag:smoke": "node scripts/mcp-smoke-test.mjs",
+    "test": "npm run extract && node --test tests/*.test.mjs && npm run rag:smoke"
+  },
+  "dependencies": {
+    "pdfjs-dist": "6.1.200"
+  },
+  "engines": {
+    "node": ">=22.13.0 || >=24"
+  }
+}
+
