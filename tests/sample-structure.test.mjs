@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
+import { createHash } from "node:crypto";
 import { root } from "../scripts/runtime-paths.mjs";
 
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "sources", "source-manifest.json"), "utf8"));
@@ -11,14 +12,17 @@ const jsonPerformance = JSON.parse(fs.readFileSync(path.join(root, "benchmarks",
 const semanticPerformance = JSON.parse(fs.readFileSync(path.join(root, "benchmarks", "semantic-baseline-2026-07-17.json"), "utf8"));
 const profiles = JSON.parse(fs.readFileSync(path.join(root, "rag", "config", "processing-profiles.json"), "utf8"));
 const collection = JSON.parse(fs.readFileSync(path.join(root, "collections", "pdf-sample", "collection.json"), "utf8"));
+const visualSidecar = JSON.parse(fs.readFileSync(path.join(root, "sources", "diagrams", "system-context.svg.visual.json"), "utf8"));
 
 test("project configuration uses the Local RAG project schema", () => {
   assert.equal(config.schema, "agentknowledge.local-rag.project.v1");
   assert.equal(config.domain, "pdf-sample");
   assert.deepEqual(config.source_folders, ["sources/pdfs", "fixtures/pdf-source"]);
-  assert.equal(config.sources.length, 2);
+  assert.equal(config.sources.length, 3);
   assert.deepEqual(config.sources[0].include, ["**/*.pdf"]);
   assert.deepEqual(config.sources[1].exclude, ["**/draft/**"]);
+  assert.equal(config.sources[2].visual_description_policy, "reviewed-only");
+  assert.deepEqual(config.sources[2].include, ["**/*.svg"]);
   assert.equal(config.backend, "qdrant-local");
   assert.equal(config.graph_backend, "sqlite");
   assert.match(config.embedding_model, /multilingual/);
@@ -85,4 +89,14 @@ test("profiles and specialist skill bindings are persisted", () => {
     assert.equal(document.processing_profile, "technical");
     assert.match(document.processing_profile_digest, /^[a-f0-9]{64}$/);
   }
+});
+
+test("reviewed diagram sidecar preserves source and inference boundaries", () => {
+  const asset=fs.readFileSync(path.join(root,"sources","diagrams","system-context.svg"));
+  assert.equal(createHash("sha256").update(asset).digest("hex"),visualSidecar.source_sha256);
+  assert.equal(visualSidecar.schema,"agentknowledge.visual-descriptions.v1");
+  assert.equal(visualSidecar.descriptions[0].status,"reviewed");
+  assert.equal(visualSidecar.descriptions[0].description_method,"human");
+  assert.ok(visualSidecar.descriptions[0].observations.length>0);
+  assert.ok(visualSidecar.descriptions[0].interpretations.length>0);
 });
