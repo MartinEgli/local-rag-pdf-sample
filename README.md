@@ -11,6 +11,8 @@ documents are committed under `sources/pdfs/`, extracted locally, indexed by
 - Curated Markdown stays traceable to PDF filename and SHA-256 hash.
 - `knowledge.rebuild_project_index`, `knowledge.search`, and
   `knowledge.list_sources` work against the project as knowledge root.
+- The runtime itself can extract the committed PDFs page by page while keeping
+  SHA-256, Document ID, Evidence ID, category, attribute, and page lineage.
 - Generated JSON, Qdrant, model-cache, and SQLite graph data remains local and unversioned.
 
 The normal test keeps the dependency-free JSON backend for fast checks. The
@@ -39,6 +41,7 @@ git clone https://github.com/MartinEgli/AgentKnowledgeRuntime.git ..\AgentKnowle
 npm install
 python -m venv ..\AgentKnowledgeRuntime\.venv
 ..\AgentKnowledgeRuntime\.venv\Scripts\python -m pip install -r ..\AgentKnowledgeRuntime\requirements-vector.txt
+..\AgentKnowledgeRuntime\.venv\Scripts\python -m pip install -r ..\AgentKnowledgeRuntime\requirements-documents.txt
 ```
 
 ## Run The Sample
@@ -62,6 +65,16 @@ Run structural tests and the MCP retrieval smoke test:
 npm test
 ```
 
+Generate resolved MCP configurations for Codex, Claude Code, Cursor, Windsurf,
+and Cline:
+
+```powershell
+npm run mcp:configs
+```
+
+The files are written below `.local-rag/mcp-clients/` and intentionally remain
+unversioned because they contain machine-specific absolute paths.
+
 Run the semantic vector plus graph path after the model has been downloaded
 once (the build command performs the initial download):
 
@@ -69,6 +82,17 @@ once (the build command performs the initial download):
 ..\AgentKnowledgeRuntime\.venv\Scripts\python ..\AgentKnowledgeRuntime\rag\vector\build-qdrant.py --knowledge-root . --domain pdf-sample
 npm run rag:kag:smoke
 ```
+
+Run the measured semantic and graph performance suite with a provisioned local
+model cache:
+
+```powershell
+npm run perf -- --iterations 20
+```
+
+The result separates model/index construction from warm query p50/p95 latency.
+It is evidence for the measured host, not a portable performance guarantee.
+Recorded receipts from the current implementation are under `benchmarks/`.
 
 The smoke query is German while the PDF is English. It verifies that the
 multilingual semantic result contains `72 hours`, preserves
@@ -112,5 +136,7 @@ tests/                       Structural sample validation
 | PDFs are repository sources | `sources/pdfs/*.pdf` | Artifact | None |
 | Extracts trace to exact PDFs | Source map, Evidence Register, SHA-256 manifest | Tool result | PDF text order depends on PDF.js extraction |
 | Retrieval works through MCP | `npm test` and `npm run rag:kag:smoke` | Tool result | Model quality is corpus-dependent |
+| Runtime PDF ingestion preserves page lineage | `npm run rag:pdf:integration` | Tool result | OCR and visual layout remain explicit gaps |
+| Performance is reproducibly measurable | `npm run perf` and `benchmarks/` | Tool result | Timings are host- and cache-specific |
 | Document lifecycle is registered | `documents/pdf-sample/document-registry.json` | Generated registry | Removal is demonstrated by Runtime unit tests, not by deleting committed fixtures |
 | Fixture content may be redistributed | `sources/pdfs/LICENSE.md` | Supplied licence declaration | Not representative of third-party PDF rights |
