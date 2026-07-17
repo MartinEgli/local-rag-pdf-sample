@@ -9,8 +9,12 @@
   `indexes/evidence-register.md`.
 - Preserve Source IDs, Evidence IDs, exact filenames, hashes, assumptions, and
   gaps.
+- Keep `documents/pdf-sample/document-registry.json` aligned with the PDF
+  manifest and curated extracts. Preserve lifecycle tombstones, Document IDs,
+  SHA-256, categories, and attributes through chunks and retrieval.
+- Rebuild the chunk index, Qdrant collection, and graph after document content,
+  lifecycle, categories, or attributes change.
 - Use a domain skill after retrieval when interpretation goes beyond locating
   facts in the sample documents.
 - Start MCP through the sibling `AgentKnowledgeRuntime` repository or set
   `AGENTKNOWLEDGE_RUNTIME_ROOT` explicitly.
-

@@ -1,0 +1,42 @@
+{
+  "schema": "agentknowledge.documents.manifest.v1",
+  "managed_source_ids": ["pdf-fixtures"],
+  "documents": [
+    {
+      "source_id": "pdf-fixtures",
+      "relative_path": "sensor-network-overview.pdf",
+      "source_path": "../../sources/pdfs/sensor-network-overview.pdf",
+      "extract_path": "extracted/pdf-sample/sensor-network-overview.md",
+      "evidence_id": "PDF-SAMPLE-OVERVIEW-001",
+      "sha256": "18487185399a01ab724c9ba04c9a3a0531dd6ee7f9d857d6b1fe0d6b1faee47f",
+      "categories": {
+        "document_type": ["overview"],
+        "domain": ["iot", "sensor-network"],
+        "lifecycle": ["approved"]
+      },
+      "attributes": {
+        "language": "en",
+        "licence": "CC0-1.0",
+        "title": "Helvetia Alpine Sensor Network Overview"
+      }
+    },
+    {
+      "source_id": "pdf-fixtures",
+      "relative_path": "maintenance-runbook.pdf",
+      "source_path": "../../sources/pdfs/maintenance-runbook.pdf",
+      "extract_path": "extracted/pdf-sample/maintenance-runbook.md",
+      "evidence_id": "PDF-SAMPLE-MAINTENANCE-001",
+      "sha256": "d9019aaa3f5c1fe1c55860ab968f9bb50a0fcffca54eb474ed4c4025c08931fa",
+      "categories": {
+        "document_type": ["runbook"],
+        "domain": ["iot", "maintenance"],
+        "lifecycle": ["approved"]
+      },
+      "attributes": {
+        "language": "en",
+        "licence": "CC0-1.0",
+        "title": "Helvetia Alpine Sensor Maintenance Runbook"
+      }
+    }
+  ]
+}

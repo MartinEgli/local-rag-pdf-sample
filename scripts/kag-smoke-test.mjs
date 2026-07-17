@@ -23,7 +23,9 @@ const request = {
     top_k: 3,
     backend: "qdrant-local",
     local_files_only: true,
-    expand_graph: true
+    expand_graph: true,
+    category: "document_type",
+    category_value: "overview"
   } }
 };
 const result = spawnSync(python, [path.join(runtime, "mcp-server", "server.py"), "--knowledge-root", root], {
@@ -33,8 +35,12 @@ assert.equal(result.status, 0, result.stderr || result.stdout);
 const response = JSON.parse(result.stdout.trim());
 assert.ok(response.result, response.error?.message);
 const payload = JSON.parse(response.result.content[0].text);
-const overview = payload.results.find((item) => item.evidence_ids.includes("PDF-SAMPLE-OVERVIEW-001"));
+const overview = payload.results.find((item) =>
+  item.evidence_ids.includes("PDF-SAMPLE-OVERVIEW-001") && /72 hours/i.test(item.text)
+);
 assert.ok(overview, "semantic retrieval missed PDF-SAMPLE-OVERVIEW-001");
 assert.match(overview.text, /72 hours/i);
 assert.ok(overview.graph_context.some((item) => item.edge_kind === "CITES_EVIDENCE"));
+assert.deepEqual(overview.categories.document_type, ["overview"]);
+assert.match(overview.source_sha256, /^[a-f0-9]{64}$/);
 console.log(`KAG smoke test passed: ${payload.backend}, ${overview.chunk_id}, ${overview.evidence_ids.join(", ")}.`);

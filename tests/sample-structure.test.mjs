@@ -6,6 +6,7 @@ import { root } from "../scripts/runtime-paths.mjs";
 
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "sources", "source-manifest.json"), "utf8"));
 const config = JSON.parse(fs.readFileSync(path.join(root, ".local-rag", "project.json"), "utf8"));
+const registry = JSON.parse(fs.readFileSync(path.join(root, "documents", "pdf-sample", "document-registry.json"), "utf8"));
 
 test("project configuration uses the Local RAG project schema", () => {
   assert.equal(config.schema, "agentknowledge.local-rag.project.v1");
@@ -36,5 +37,23 @@ test("curated extracts and registers preserve evidence IDs", () => {
     assert.match(sourceMap, new RegExp(document.source_id));
     assert.match(sourceMap, new RegExp(document.evidence_id));
     assert.match(evidence, new RegExp(document.evidence_id));
+  }
+});
+
+test("document registry preserves lifecycle, classification, and hashes", () => {
+  assert.equal(registry.schema, "agentknowledge.documents.v1");
+  assert.equal(registry.documents.length, 2);
+  for (const document of registry.documents) {
+    assert.equal(document.status, "active");
+    assert.match(document.document_id, /^doc:[a-f0-9]{24}$/);
+    assert.match(document.sha256, /^[a-f0-9]{64}$/);
+    assert.ok(document.evidence_id.startsWith("PDF-SAMPLE-"));
+    assert.ok(document.categories.document_type.length >= 1);
+    assert.ok(document.categories.domain.length >= 1);
+    assert.equal(document.attributes.licence, "CC0-1.0");
+    assert.match(document.source_path, /^sources\/pdfs\//);
+    const source = manifest.documents.find((item) => item.evidence_id === document.evidence_id);
+    assert.ok(source, `registry evidence ${document.evidence_id} is absent from source manifest`);
+    assert.equal(document.sha256, source.sha256);
   }
 });
