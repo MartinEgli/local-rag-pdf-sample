@@ -11,11 +11,11 @@ documents are committed under `sources/pdfs/`, extracted locally, indexed by
 - Curated Markdown stays traceable to PDF filename and SHA-256 hash.
 - `knowledge.rebuild_project_index`, `knowledge.search`, and
   `knowledge.list_sources` work against the project as knowledge root.
-- Generated `.local-rag-index/` data remains local and unversioned.
+- Generated JSON, Qdrant, model-cache, and SQLite graph data remains local and unversioned.
 
-The runtime currently uses its local JSON hash-vector demo backend. This sample
-does not claim semantic-embedding quality or production vector-store
-durability.
+The normal test keeps the dependency-free JSON backend for fast checks. The
+optional KAG smoke test uses persistent local Qdrant, multilingual FastEmbed
+embeddings, contextual chunks, and a source-traceable SQLite graph.
 
 ## Prerequisites
 
@@ -28,6 +28,8 @@ durability.
 ```powershell
 git clone https://github.com/MartinEgli/AgentKnowledgeRuntime.git ..\AgentKnowledgeRuntime
 npm install
+python -m venv ..\AgentKnowledgeRuntime\.venv
+..\AgentKnowledgeRuntime\.venv\Scripts\python -m pip install -r ..\AgentKnowledgeRuntime\requirements-vector.txt
 ```
 
 ## Run The Sample
@@ -50,6 +52,18 @@ Run structural tests and the MCP retrieval smoke test:
 ```powershell
 npm test
 ```
+
+Run the semantic vector plus graph path after the model has been downloaded
+once (the build command performs the initial download):
+
+```powershell
+..\AgentKnowledgeRuntime\.venv\Scripts\python ..\AgentKnowledgeRuntime\rag\vector\build-qdrant.py --knowledge-root . --domain pdf-sample
+npm run rag:kag:smoke
+```
+
+The smoke query is German while the PDF is English. It verifies that the
+multilingual semantic result contains `72 hours`, preserves
+`PDF-SAMPLE-OVERVIEW-001`, and exposes a `CITES_EVIDENCE` graph edge.
 
 The smoke query asks how long the gateway buffers readings during an outage.
 The expected candidate contains `72 hours` and Evidence ID
@@ -86,6 +100,5 @@ tests/                       Structural sample validation
 | --- | --- | --- | --- |
 | PDFs are repository sources | `sources/pdfs/*.pdf` | Artifact | None |
 | Extracts trace to exact PDFs | Source map, Evidence Register, SHA-256 manifest | Tool result | PDF text order depends on PDF.js extraction |
-| Retrieval works through MCP | `npm test` smoke-test output | Tool result | Demo hash-vector backend only |
+| Retrieval works through MCP | `npm test` and `npm run rag:kag:smoke` | Tool result | Model quality is corpus-dependent |
 | Fixture content may be redistributed | `sources/pdfs/LICENSE.md` | Supplied licence declaration | Not representative of third-party PDF rights |
-
