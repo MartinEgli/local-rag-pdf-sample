@@ -17,11 +17,15 @@
     "dist",
     "build",
     "__pycache__",
-    ".local-rag-index"
+    ".local-rag-index",
+    ".local-rag-qdrant",
+    ".local-rag-graph",
+    ".local-rag-models"
   ],
-  "backend": "local-json-demo",
+  "backend": "qdrant-local",
+  "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "graph_backend": "sqlite",
   "mcp_server": "../AgentKnowledgeRuntime/mcp-server/server.py",
   "raw_policy": "commit-self-authored-pdf-fixtures",
   "retrieval_rule": "Retrieved chunks are candidates and must be verified against the PDF, curated extract, source map, and evidence register."
 }
-

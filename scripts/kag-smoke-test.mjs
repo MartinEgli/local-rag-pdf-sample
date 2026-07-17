@@ -1,0 +1,40 @@
+import assert from "node:assert/strict";
+import path from "node:path";
+import { spawnSync } from "node:child_process";
+import { root, runtimeRoot, vectorPythonCommand } from "./runtime-paths.mjs";
+
+const runtime = runtimeRoot();
+const python = vectorPythonCommand();
+const run = (script, args) => {
+  const result = spawnSync(python, [path.join(runtime, ...script), ...args], { cwd: root, encoding: "utf8" });
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  return result;
+};
+
+run(["rag", "ingest", "build-index.py"], ["--knowledge-root", root, "--domain", "pdf-sample"]);
+run(["rag", "vector", "build-qdrant.py"], ["--knowledge-root", root, "--domain", "pdf-sample", "--local-files-only"]);
+run(["rag", "graph", "build-graph.py"], ["--knowledge-root", root, "--domain", "pdf-sample"]);
+
+const request = {
+  jsonrpc: "2.0", id: 1, method: "tools/call",
+  params: { name: "knowledge.search", arguments: {
+    domain: "pdf-sample",
+    query: "Wie lange puffert das Gateway Messwerte bei einem Ausfall?",
+    top_k: 3,
+    backend: "qdrant-local",
+    local_files_only: true,
+    expand_graph: true
+  } }
+};
+const result = spawnSync(python, [path.join(runtime, "mcp-server", "server.py"), "--knowledge-root", root], {
+  cwd: root, input: `${JSON.stringify(request)}\n`, encoding: "utf8"
+});
+assert.equal(result.status, 0, result.stderr || result.stdout);
+const response = JSON.parse(result.stdout.trim());
+assert.ok(response.result, response.error?.message);
+const payload = JSON.parse(response.result.content[0].text);
+const overview = payload.results.find((item) => item.evidence_ids.includes("PDF-SAMPLE-OVERVIEW-001"));
+assert.ok(overview, "semantic retrieval missed PDF-SAMPLE-OVERVIEW-001");
+assert.match(overview.text, /72 hours/i);
+assert.ok(overview.graph_context.some((item) => item.edge_kind === "CITES_EVIDENCE"));
+console.log(`KAG smoke test passed: ${payload.backend}, ${overview.chunk_id}, ${overview.evidence_ids.join(", ")}.`);

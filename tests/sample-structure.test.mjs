@@ -11,7 +11,9 @@ test("project configuration uses the Local RAG project schema", () => {
   assert.equal(config.schema, "agentknowledge.local-rag.project.v1");
   assert.equal(config.domain, "pdf-sample");
   assert.deepEqual(config.source_folders, ["sources/pdfs"]);
-  assert.equal(config.backend, "local-json-demo");
+  assert.equal(config.backend, "qdrant-local");
+  assert.equal(config.graph_backend, "sqlite");
+  assert.match(config.embedding_model, /multilingual/);
 });
 
 test("committed PDF sources are valid and hash-registered", () => {
@@ -33,4 +35,3 @@ test("curated extracts and registers preserve evidence IDs", () => {
     assert.match(evidence, new RegExp(document.evidence_id));
   }
 });
-

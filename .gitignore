@@ -1,4 +1,6 @@
 node_modules/
 .local-rag-index/
+.local-rag-qdrant/
+.local-rag-graph/
+.local-rag-models/
 npm-debug.log*
-
