@@ -22,6 +22,8 @@ test("project configuration uses the Local RAG project schema", () => {
   assert.equal(config.backend, "qdrant-local");
   assert.equal(config.graph_backend, "sqlite");
   assert.match(config.embedding_model, /multilingual/);
+  assert.equal(config.portable_bundle_store.provider, "local");
+  assert.equal(config.portable_bundle_store.layout, "collection-versioned");
 });
 
 test("committed PDF sources are valid and hash-registered", () => {
