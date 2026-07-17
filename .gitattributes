@@ -1,0 +1,2 @@
+sources/diagrams/*.svg text eol=lf
+sources/diagrams/*.visual.json text eol=lf
