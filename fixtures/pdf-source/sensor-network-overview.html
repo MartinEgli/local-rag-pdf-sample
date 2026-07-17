@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Helvetia Alpine Sensor Network Overview</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 48px; line-height: 1.45; color: #172033; }
+    h1 { color: #184a78; }
+    h2 { margin-top: 28px; color: #24608f; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #718096; padding: 8px; text-align: left; }
+    .notice { background: #edf6ff; border-left: 4px solid #24608f; padding: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Helvetia Alpine Sensor Network Overview</h1>
+  <p class="notice">Fictional document created for the Local RAG PDF sample.</p>
+  <h2>Purpose</h2>
+  <p>The network monitors air temperature and relative humidity at fictional alpine field stations.</p>
+  <h2>Operating Facts</h2>
+  <table>
+    <tr><th>Fact</th><th>Configured value</th></tr>
+    <tr><td>Upload interval</td><td>Every 15 minutes</td></tr>
+    <tr><td>Offline gateway buffer</td><td>72 hours of sensor readings</td></tr>
+    <tr><td>Transport</td><td>MQTT over TLS 1.3</td></tr>
+    <tr><td>Gateway retention after upload</td><td>30 days</td></tr>
+    <tr><td>Low battery alert</td><td>Below 20 percent</td></tr>
+  </table>
+  <h2>Outage Behaviour</h2>
+  <p>During a network outage, each gateway buffers readings locally for up to 72 hours. When connectivity returns, the gateway uploads the oldest buffered reading first.</p>
+  <h2>Scope Boundary</h2>
+  <p>This sample does not describe a real installation and must not be used for safety, compliance, or engineering approval.</p>
+</body>
+</html>
+

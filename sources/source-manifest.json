@@ -1,0 +1,19 @@
+{
+  "schema": "local-rag-pdf-sample.sources.v1",
+  "documents": [
+    {
+      "file": "pdfs/sensor-network-overview.pdf",
+      "title": "Helvetia Alpine Sensor Network Overview",
+      "source_id": "PDF-SAMPLE-SOURCE-001",
+      "evidence_id": "PDF-SAMPLE-OVERVIEW-001",
+      "sha256": "18487185399a01ab724c9ba04c9a3a0531dd6ee7f9d857d6b1fe0d6b1faee47f"
+    },
+    {
+      "file": "pdfs/maintenance-runbook.pdf",
+      "title": "Helvetia Alpine Sensor Maintenance Runbook",
+      "source_id": "PDF-SAMPLE-SOURCE-002",
+      "evidence_id": "PDF-SAMPLE-MAINTENANCE-001",
+      "sha256": "d9019aaa3f5c1fe1c55860ab968f9bb50a0fcffca54eb474ed4c4025c08931fa"
+    }
+  ]
+}
