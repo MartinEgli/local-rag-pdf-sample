@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.9.0
+
+- Added a strict embedding fingerprint covering model revision, artifacts,
+  tokenizer, configuration, dimensions, pooling, normalization, and FastEmbed.
+- Added a deterministic graph JSONL bundle member and verified SQLite
+  reconstruction after import.
+- Added per-document original-source availability and explicit verification
+  gaps for externally referenced PDFs.
+- Added LF checkout rules for hash-bound SVG evidence across platforms.
+
 ## 0.8.0
 
 - Added a self-authored SVG system-context diagram with a reviewed visual
