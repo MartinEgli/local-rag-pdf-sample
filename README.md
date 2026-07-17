@@ -119,6 +119,22 @@ Google Drive, Dropbox, or Synology Drive folder. Git LFS and provider SDKs are
 not required. Each collection receives versioned bundles and a checksummed
 `latest.json` import receipt; do not commit live Qdrant storage.
 
+## Visual Description Sample
+
+`sources/diagrams/system-context.svg` is a self-authored diagram. Its adjacent
+`.visual.json` sidecar separates reviewed description, visible text,
+observations, and interpretation while retaining the source hash and stable
+Visual ID. The Runtime embeds only the reviewed description and keeps the SVG
+as primary evidence.
+
+```powershell
+npm run visual:test
+```
+
+The test ingests the SVG and sidecar, copies both into the portable raw-evidence
+layout, builds the RAG index, and verifies that every resulting chunk retains
+the Visual ID and visual Evidence reference.
+
 The smoke query is German while the PDF is English. It verifies that the
 multilingual semantic result contains `72 hours`, preserves
 `PDF-SAMPLE-OVERVIEW-001`, filters `document_type=overview`, preserves the
