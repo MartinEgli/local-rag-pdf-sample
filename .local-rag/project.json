@@ -13,14 +13,29 @@
       "path": "sources/pdfs",
       "include": ["**/*.pdf"],
       "exclude": [],
-      "copy_raw": false
+      "copy_raw": false,
+      "categories": {
+        "domain": ["iot"],
+        "source_format": ["pdf"]
+      },
+      "attributes": {
+        "licence": "CC0-1.0",
+        "review_status": "fixture-approved"
+      }
     },
     {
       "id": "fixture-html",
       "path": "fixtures/pdf-source",
       "include": ["**/*.html"],
       "exclude": ["**/draft/**"],
-      "copy_raw": false
+      "copy_raw": false,
+      "categories": {
+        "source_format": ["html"],
+        "purpose": ["fixture-source"]
+      },
+      "attributes": {
+        "generated_pdf_source": true
+      }
     }
   ],
   "exclude": [

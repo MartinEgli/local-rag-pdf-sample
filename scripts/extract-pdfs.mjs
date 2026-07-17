@@ -2,7 +2,9 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
+import { pythonCommand, runtimeRoot } from "./runtime-paths.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "sources", "source-manifest.json"), "utf8"));
@@ -94,4 +96,13 @@ fs.writeFileSync(path.join(root, "indexes", "source-map.md"), sourceMap);
 fs.writeFileSync(path.join(root, "indexes", "evidence-register.md"), evidenceRegister);
 fs.writeFileSync(path.join(root, ".local-rag", "rag.sources.md"), projectSources);
 fs.writeFileSync(path.join(root, ".local-rag", "rag.evidence.md"), projectEvidence);
+const registryResult = spawnSync(pythonCommand(), [
+  path.join(runtimeRoot(), "rag", "ingest", "sync-document-manifest.py"),
+  "--knowledge-root", root,
+  "--domain", "pdf-sample",
+  "--manifest", path.join(root, "documents", "pdf-sample", "document-manifest.json")
+], { cwd: root, encoding: "utf8" });
+if (registryResult.status !== 0) {
+  throw new Error(registryResult.stderr || registryResult.stdout || "Document registry sync failed");
+}
 console.log(`Extracted ${manifest.documents.length} PDFs with stable evidence IDs.`);

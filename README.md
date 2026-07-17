@@ -20,6 +20,12 @@ embeddings, contextual chunks, and a source-traceable SQLite graph.
 `.local-rag/project.json` also demonstrates two configured source locations.
 Each location has a stable source ID and its own `include` and `exclude` globs.
 
+`documents/pdf-sample/` contains the curated document manifest and generated
+lifecycle registry. The registry records stable Document/Evidence IDs,
+SHA-256, active/removal state, history, multi-valued categories, and attributes.
+The PDF extraction script synchronises this registry through
+`AgentKnowledgeRuntime`; unchanged runs are idempotent.
+
 ## Prerequisites
 
 - Node.js 22.13+ or 24+
@@ -66,7 +72,8 @@ npm run rag:kag:smoke
 
 The smoke query is German while the PDF is English. It verifies that the
 multilingual semantic result contains `72 hours`, preserves
-`PDF-SAMPLE-OVERVIEW-001`, and exposes a `CITES_EVIDENCE` graph edge.
+`PDF-SAMPLE-OVERVIEW-001`, filters `document_type=overview`, preserves the
+source SHA-256, and exposes a `CITES_EVIDENCE` graph edge.
 
 The smoke query asks how long the gateway buffers readings during an outage.
 The expected candidate contains `72 hours` and Evidence ID
@@ -91,6 +98,7 @@ Review and commit the resulting PDF and manifest changes together.
 fixtures/pdf-source/         Reproducible HTML used only to build test PDFs
 sources/pdfs/                Committed RAG source PDFs
 extracted/pdf-sample/        Curated PDF text with traceability metadata
+documents/pdf-sample/        Curated manifest and lifecycle registry
 indexes/                     Source map and evidence register
 rag/config/                  Runtime chunking configuration
 scripts/                     Extraction, runtime, and MCP smoke-test commands
@@ -104,4 +112,5 @@ tests/                       Structural sample validation
 | PDFs are repository sources | `sources/pdfs/*.pdf` | Artifact | None |
 | Extracts trace to exact PDFs | Source map, Evidence Register, SHA-256 manifest | Tool result | PDF text order depends on PDF.js extraction |
 | Retrieval works through MCP | `npm test` and `npm run rag:kag:smoke` | Tool result | Model quality is corpus-dependent |
+| Document lifecycle is registered | `documents/pdf-sample/document-registry.json` | Generated registry | Removal is demonstrated by Runtime unit tests, not by deleting committed fixtures |
 | Fixture content may be redistributed | `sources/pdfs/LICENSE.md` | Supplied licence declaration | Not representative of third-party PDF rights |

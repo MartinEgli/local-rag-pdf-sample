@@ -1,0 +1,121 @@
+{
+  "schema": "agentknowledge.documents.v1",
+  "domain": "pdf-sample",
+  "documents": [
+    {
+      "document_id": "doc:8805d710b359baddc6a3ebcb",
+      "first_seen_at": "2026-07-17T09:53:11.221466+00:00",
+      "events": [
+        {
+          "event": "added",
+          "at": "2026-07-17T09:53:11.221466+00:00",
+          "sha256": "d9019aaa3f5c1fe1c55860ab968f9bb50a0fcffca54eb474ed4c4025c08931fa"
+        }
+      ],
+      "manual_categories": {},
+      "manual_attributes": {},
+      "source_id": "pdf-fixtures",
+      "relative_path": "maintenance-runbook.pdf",
+      "source_path": "sources/pdfs/maintenance-runbook.pdf",
+      "extract_path": "extracted/pdf-sample/maintenance-runbook.md",
+      "evidence_id": "PDF-SAMPLE-MAINTENANCE-001",
+      "sha256": "d9019aaa3f5c1fe1c55860ab968f9bb50a0fcffca54eb474ed4c4025c08931fa",
+      "size_bytes": 52013,
+      "status": "active",
+      "last_seen_at": "2026-07-17T09:53:11.221466+00:00",
+      "removed_at": null,
+      "configured_categories": {
+        "document_type": [
+          "runbook"
+        ],
+        "domain": [
+          "iot",
+          "maintenance"
+        ],
+        "lifecycle": [
+          "approved"
+        ]
+      },
+      "configured_attributes": {
+        "language": "en",
+        "licence": "CC0-1.0",
+        "title": "Helvetia Alpine Sensor Maintenance Runbook"
+      },
+      "categories": {
+        "document_type": [
+          "runbook"
+        ],
+        "domain": [
+          "iot",
+          "maintenance"
+        ],
+        "lifecycle": [
+          "approved"
+        ]
+      },
+      "attributes": {
+        "language": "en",
+        "licence": "CC0-1.0",
+        "title": "Helvetia Alpine Sensor Maintenance Runbook"
+      }
+    },
+    {
+      "document_id": "doc:d490d79ab744beadba616f28",
+      "first_seen_at": "2026-07-17T09:53:11.221466+00:00",
+      "events": [
+        {
+          "event": "added",
+          "at": "2026-07-17T09:53:11.221466+00:00",
+          "sha256": "18487185399a01ab724c9ba04c9a3a0531dd6ee7f9d857d6b1fe0d6b1faee47f"
+        }
+      ],
+      "manual_categories": {},
+      "manual_attributes": {},
+      "source_id": "pdf-fixtures",
+      "relative_path": "sensor-network-overview.pdf",
+      "source_path": "sources/pdfs/sensor-network-overview.pdf",
+      "extract_path": "extracted/pdf-sample/sensor-network-overview.md",
+      "evidence_id": "PDF-SAMPLE-OVERVIEW-001",
+      "sha256": "18487185399a01ab724c9ba04c9a3a0531dd6ee7f9d857d6b1fe0d6b1faee47f",
+      "size_bytes": 54426,
+      "status": "active",
+      "last_seen_at": "2026-07-17T09:53:11.221466+00:00",
+      "removed_at": null,
+      "configured_categories": {
+        "document_type": [
+          "overview"
+        ],
+        "domain": [
+          "iot",
+          "sensor-network"
+        ],
+        "lifecycle": [
+          "approved"
+        ]
+      },
+      "configured_attributes": {
+        "language": "en",
+        "licence": "CC0-1.0",
+        "title": "Helvetia Alpine Sensor Network Overview"
+      },
+      "categories": {
+        "document_type": [
+          "overview"
+        ],
+        "domain": [
+          "iot",
+          "sensor-network"
+        ],
+        "lifecycle": [
+          "approved"
+        ]
+      },
+      "attributes": {
+        "language": "en",
+        "licence": "CC0-1.0",
+        "title": "Helvetia Alpine Sensor Network Overview"
+      }
+    }
+  ],
+  "updated_at": "2026-07-17T09:53:11.222045+00:00"
+}
