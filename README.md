@@ -111,8 +111,13 @@ npm run portable:test
 It exports extracts, settings, registry, chunks, real FastEmbed vectors, and
 skill bindings into a checksummed ZIP, imports it into a fresh knowledge root,
 and reconstructs Qdrant without re-embedding the documents. The target still
-needs the declared model for new query embeddings. Use Git LFS or file/object
-storage for large or confidential bundles; do not commit live Qdrant storage.
+needs the declared model for new query embeddings.
+
+The project config demonstrates a provider-neutral `portable_bundle_store`.
+Point its path to a local directory or an already synchronised OneDrive,
+Google Drive, Dropbox, or Synology Drive folder. Git LFS and provider SDKs are
+not required. Each collection receives versioned bundles and a checksummed
+`latest.json` import receipt; do not commit live Qdrant storage.
 
 The smoke query is German while the PDF is English. It verifies that the
 multilingual semantic result contains `72 hours`, preserves
